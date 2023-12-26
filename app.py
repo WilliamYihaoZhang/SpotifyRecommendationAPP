@@ -28,8 +28,8 @@ app.secret_key = "Something Random"
 app.config['SESSION_COOKIE_NAME'] = 'Cookie'
 
 
-CLIENT_ID = '<dummy_ID>'
-CLIENT_SECRET = '<dummy_SECRET>' 
+CLIENT_ID = '<dummy_Client_ID>'
+CLIENT_SECRET = '<dummy_CLIENT_SECRET>'
 
 # Base64 encode the client ID and client secret
 client_credentials = f"{CLIENT_ID}:{CLIENT_SECRET}"

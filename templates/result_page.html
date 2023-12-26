@@ -1,4 +1,3 @@
-<!-- result_page.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,51 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Add this style section in the head of your HTML document -->
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .chosen-tracks {
+            margin-bottom: 20px;
+        }
+
+        .result-item {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Recommended Tracks:</h1>
-
-
-
-
-    {% if songs_list and chosen_tracks %}
-       
-        <div>
-            <p>The chosen tracks the recommendations were based on were:</p>
-            <ul>
-                {%for (track_name, track_artists) in chosen_tracks%}
-                <li>Song: {{track_name}} by Artist(s): {{track_artists|join(', ')}}</li>
-                {%endfor%}
-            </ul>
-        </div>
-    
-    {% else %}
-        <p>No data available.</p>
-    {% endif %}
     <div class="container">
-        {% for index, (track_name, track_info) in songs_list %}
-          {% if index % 3 == 0 %}
-            <div class="row">
-          {% endif %}
-      
-          <div class="col-md-4">
-            <strong>{{ track_name }}</strong>
-            <p>Artists: {{ track_info.artists|join(', ') }}</p>
-            <img src="{{ track_info.track_img }}" alt="Track Image" width=300px height=300px>
-          </div>
-      
-          {% if (index + 1) % 3 == 0 or index == (tracks|length) -1 %}
-            </div> 
-          {% endif %}
-        {% endfor %}
-      </div>
-      
+        <h1 class="text-center">Recommended Tracks:</h1>
 
-    <!-- Center the button -->
-    <div class="container text-center">
-        <form method="post" action="{{ url_for('button_page') }}">
-            <button type="submit" class="btn btn-primary">Get More Recommendations?</button>
-        </form>
+        {% if songs_list and chosen_tracks %}
+            <div class="chosen-tracks">
+                <p>The chosen tracks the recommendations were based on were:</p>
+                <ul>
+                    {% for (track_name, track_artists) in chosen_tracks %}
+                        <li>Song: {{track_name}} by Artist(s): {{track_artists|join(', ')}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+
+        <div class="row">
+            {% for index, (track_name, track_info) in songs_list %}
+                <div class="col-md-4 result-item">
+                    <strong>{{ track_name }}</strong>
+                    <p>Artists: {{ track_info.artists|join(', ') }}</p>
+                    <img src="{{ track_info.track_img }}" alt="Track Image" width=300px height=300px>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Center the button -->
+        <div class="text-center">
+            <form method="post" action="{{ url_for('button_page') }}">
+                <button type="submit" class="btn btn-primary">Get More Recommendations?</button>
+            </form>
+        </div>
     </div>
 
     <!-- Include Bootstrap JS and jQuery -->
