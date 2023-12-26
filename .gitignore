@@ -6,3 +6,6 @@ __pycache__/
 
 #ignore info.txt
 info.txt
+
+#ignore virtual environment
+venv/
