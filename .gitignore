@@ -1,0 +1,8 @@
+# Ignore Python bytecode files
+__pycache__/
+
+# Ignore cache files
+.cache
+
+#ignore info.txt
+info.txt
