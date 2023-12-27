@@ -65,5 +65,5 @@ Inspiration, code snippets, etc.
 * [SpotifyAPI doc](https://developer.spotify.com/documentation/web-api)
 * [Spotipy Doc](https://spotipy.readthedocs.io/en/2.22.1/)
 
-##Contributing
+## Contributing
 Pull requests are welcome! For major refactors, please open an issue first to discuss what you would like to improve. Feel free to create a fork of this repository and use the code for any noncommercial purposes.
