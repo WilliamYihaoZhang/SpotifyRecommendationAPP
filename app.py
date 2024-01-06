@@ -43,7 +43,6 @@ token_url = 'https://accounts.spotify.com/api/token'
 TOKEN_INFO = "token_info" 
 
 
-
 @app.route('/',methods=['GET','POST'])
 def login():
     ''' if request.method == "POST": #player pressed button
