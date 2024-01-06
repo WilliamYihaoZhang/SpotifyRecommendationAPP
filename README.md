@@ -60,7 +60,7 @@ flask run
 
 ### Version 1.0
 
-![Version 1.0](Project_Screenshot.png)
+<img src="Project_Screenshot.png" alt="Version 2.0" width ="300" height="300">
 
 - Initial release.
 - Basic recommendation functionality.
