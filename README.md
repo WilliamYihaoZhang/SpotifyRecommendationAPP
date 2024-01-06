@@ -5,8 +5,7 @@ A Webserver Application to generate personalized Spotify Song recommendations ba
 
 ## Screenshots
 
-<img src="Ver2.0_Screenshot.png" alt="Version 2.0" >
-
+<img src="Preview.gif" alt="Insert GIF Here" >
 
 
 ## Getting Started
