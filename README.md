@@ -41,7 +41,7 @@ A Webserver Application to generate personalized Spotify Song recommendations ba
 ### Executing program
 
 * My actively running website can be found under http://williamzhang.eu.pythonanywhere.com/
-* Note: only emails/spotify accounts that have been granted permission by me can use the website.
+* Note: only spotify accounts that have been granted permission by me can use the website.
   
 * Running the webserver on your own machine, after setting up as listed above, can be done as follows:
 ```
