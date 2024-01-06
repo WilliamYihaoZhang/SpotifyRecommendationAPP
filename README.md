@@ -48,6 +48,25 @@ A Webserver Application to generate personalized Spotify Song recommendations ba
 flask run
 ```
 
+## Version History
+### Version 2.0
+
+![Version 2.0](Project_Screenshot.png)
+
+- Overhaul of UI. Using more green tones.
+- Added Retries and Error Handling for API-Calls.
+- Fixed bugs.
+
+
+### Version 1.0
+
+![Version 1.0](Project_Screenshot.png)
+
+- Initial release.
+- Basic recommendation functionality.
+- Simple UI
+
+
 ## Help
 
 For any problems and issues. Feel free to open an issue or shoot me an email at williamyihaozhang@gmail.com
