@@ -1,0 +1,220 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Optional: Center text within the container */
+}
+
+
+.main-container {
+    border-radius: 24px;
+    background-color: #000;
+    display: flex;
+    max-width: 381px;
+    flex-direction: column;
+    padding: 32px 33px;
+}
+
+
+
+.image-wrapper {
+    aspect-ratio: 0.86;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    align-items: center;
+    overflow: hidden;
+}
+
+.title{
+    color: #fff;
+    margin-top: 24px;
+    white-space: nowrap;
+    font: 700 32px/110% Helvetica, sans-serif;
+    max-width: 100%; /* Add this line to make sure the title doesn't exceed the container width */
+    overflow: hidden; /* Add this line to hide any overflow if the title is too long */
+    text-overflow: ellipsis; /* Add this line to show ellipsis (...) for truncated text */
+}
+
+
+
+.description {
+    color: #fff;
+    margin-top: 9px;
+    white-space: nowrap;
+    font: 400 24px/110% Helvetica, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+.chosen-tracks {
+    margin-bottom: 20px;
+}
+
+.result-item {
+    margin-bottom: 20px;
+}
+
+.big-text {
+    color: #000000;
+    text-align: center;
+    font-family: "Helvetica-Bold", sans-serif;
+    font-size: 6.667vw;
+    line-height: 110%;
+    font-weight: 700;
+    position: relative;
+    align-self: stretch;
+}
+
+body {
+    background-color: #ecffd9;
+}
+
+.small-text {
+    color: #000000;
+    text-align: center;
+    font-family: "Helvetica-Regular", sans-serif;
+    font-size: 2.222vw;
+    line-height: 110%;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+}
+
+.list_item{
+    color: black;
+    font: 400 24px/110% Helvetica, sans-serif;
+}
+
+.button {
+    border-radius: 3.5vh; /* Adjusted border-radius using vh */
+    border-style: solid;
+    border-color: #000000;
+    border-width: 0; /* Adjusted border-width using vw */
+    padding: 1.5vh 3vw 1.8vh 3vw; /* Adjusted padding using vh and vw */
+    display: flex;
+    flex-direction: row;
+    gap: 1vw; /* Adjusted gap using vw */
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: auto; /* Let the width be determined by content */
+    position: relative;
+    color:white;
+    transition-duration: 0.2s;
+    background-color: black;
+    cursor: pointer; /* Set the cursor to pointer */
+}
+  
+  .button:hover{
+    transform: scale(0.98);
+    background-color: #8b8b8b;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Add box-shadow on hover */
+    color: black;
+    border: none; 
+  }
+  
+  .button-text {
+    color: #ecffd9;
+    text-align: left;
+    font-family: "Helvetica-Regular", sans-serif;
+    font-size: 1.5vw; /* Adjusted font size using vw */
+    line-height: 110%;
+    font-weight: 400;
+    position: relative;
+}
+  
+ul{
+    list-style-type: none;
+}
+
+li{
+    margin-bottom: 5px;
+}
+
+
+
+
+.song-cards{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+}
+
+.col-md-6{
+    flex:0 0 calc(50%-10px);
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+
+
+
+.song_card,
+.song_card * {
+  box-sizing: border-box;
+}
+
+.song_card {
+  background: #000000;
+  border-radius: 24px;
+  padding: 32px 33px 32px 33px;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: 310px;
+  position: relative;
+  margin-right:10px;
+}
+
+.song_image {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.song_text_container {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  position: relative;
+}
+
+.song-title {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Helvetica-Bold", sans-serif;
+  font-size: 28px;
+  line-height: 110%;
+  font-weight: 700;
+  position: relative;
+  align-self: stretch;
+}
+.artist-name {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Helvetica-Regular", sans-serif;
+  font-size: 20px;
+  line-height: 110%;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+
+

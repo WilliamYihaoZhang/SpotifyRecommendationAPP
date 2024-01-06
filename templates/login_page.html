@@ -5,24 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='button_page.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login_page.css') }}">
 
 </head>
 <body>
    
-    <div class="button-page">
+    <div class="login-page">
         <div class="content">
           <div class="text">
-            <div class="small-text">
-                Welcome {{ username }}, you are logged in now!
-            </div>
+            <div class="small-text">Bored of your overplayed Spotify playlist?</div>
             <div class="big-text">
-             Generate your song recommendations now
+              Discover new songs based on your current favorites.
             </div>
           </div>
-          <form method = "post" action ="{{url_for('button_page')}}">
+          <form method = "post" action ="{{url_for('login')}}">
             <button type="submit" class="button">
-                <div class ="button-text">Generate</div>
+                <div class ="button-text">Get Started</div>
             </button>
           </form>
         </div>

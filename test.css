@@ -1,0 +1,62 @@
+.card,
+.card * {
+  box-sizing: border-box;
+}
+
+.card {
+  background: #000000;
+  border-radius: 24px;
+  padding: 32px 33px 32px 33px;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 598.17px;
+  height: 310px;
+  position: relative;
+}
+
+.image {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  position: relative;
+}
+
+.song-title {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Helvetica-Bold", sans-serif;
+  font-size: 32px;
+  line-height: 110%;
+  font-weight: 700;
+  position: relative;
+  align-self: stretch;
+}
+.artist-name {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Helvetica-Regular", sans-serif;
+  font-size: 24px;
+  line-height: 110%;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}

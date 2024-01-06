@@ -19,6 +19,7 @@ LIMIT_TOP_ARTIST = 20       #how many top_artists are found
 LIMIT_TOP_TRACKS = 100       #how many top_tracks are found
 LIMIT_RECOMMENDED_TRACKS = 15
 RANDOM_TRACKS= 5
+NUM_SONGS_RECOMMENDED = 12 #number of songs recommended through spotify api
 
 
 
@@ -31,6 +32,7 @@ app.config['SESSION_COOKIE_NAME'] = 'Cookie'
 CLIENT_ID = '<dummy_Client_ID>'
 CLIENT_SECRET = '<dummy_CLIENT_SECRET>'
 
+
 # Base64 encode the client ID and client secret
 client_credentials = f"{CLIENT_ID}:{CLIENT_SECRET}"
 client_credentials_base64 = base64.b64encode(client_credentials.encode())
@@ -42,15 +44,31 @@ TOKEN_INFO = "token_info"
 
 
 
-@app.route('/')
+@app.route('/',methods=['GET','POST'])
 def login():
-    print("\n\n\nAT LOGIN PAGE\n\n\n")
-    sp_oath = create_spotify_oauth()
-    
-    auth_url = sp_oath.get_authorize_url()
+    ''' if request.method == "POST": #player pressed button
+        songs_dict,chosen_tracks = getRecommendations() #get recommendations
 
-    print(f"Auth URL: {auth_url}")
-    return redirect(auth_url) #redirect user to authentication url
+        session['recommended_songs'] = songs_dict #store variables in current session
+        session['chosen_tracks'] = chosen_tracks
+
+      
+        #redirect to page, for displaying result
+        return redirect(url_for('result_page',_external=True))
+    else:
+        return render_template('button_page.html')'''
+    if request.method == "POST": #user pressed button, to go to the auth page
+        sp_oath = create_spotify_oauth()
+    
+        auth_url = sp_oath.get_authorize_url()
+
+        print(f"Auth URL: {auth_url}")
+        return redirect(auth_url) #redirect user to authentication url
+    
+    return render_template('login_page.html')
+
+    print("\n\n\nAT LOGIN PAGE\n\n\n")
+   
 
 #after authenticating users get here
 @app.route('/redirect')
@@ -60,6 +78,9 @@ def redirectPage():
     code = request.args.get('code') 
     token_info = sp_oath.get_access_token(code)
     session[TOKEN_INFO] = token_info #saving token information (accesstoken,refresh token,expiresAt) in the current session 
+    print("\n\nDebug1\n\n")
+    user_name = getName()
+    session['username'] = user_name
     
     return redirect(url_for('button_page', _external=True))
 
@@ -79,19 +100,33 @@ def logout():
 
 
 
-@app.route('/button_page', methods=['GET','POST'])
+@app.route('/button_page', methods=['GET', 'POST'])
 def button_page():
-    if request.method == "POST": #player pressed button
-        songs_dict,chosen_tracks = getRecommendations() #get recommendations
+    if request.method == "POST":
+        print("Handling POST request")
+        getName()
+        
+        while True:
+            songs_dict, chosen_tracks = getRecommendations()
 
-        session['recommended_songs'] = songs_dict #store variables in current session
+            if songs_dict is not None:
+                print("Recommendations retrieved")
+                break
+            else:
+                print("Unable to retrieve recommendations. Retrying in 3 seconds...")
+                time.sleep(3)  # Add a delay before retrying
+    
+
+        
+        
+        session['recommended_songs'] = songs_dict
         session['chosen_tracks'] = chosen_tracks
 
-      
-        #redirect to page, for displaying result
-        return redirect(url_for('result_page',_external=True))
+        
+        return redirect(url_for('result_page', _external=True))
     else:
-        return render_template('button_page.html')
+        return render_template('button_page.html',username=session['username'])
+    
 
 @app.route('/result_page', methods=['GET','POST'])
 def result_page():
@@ -114,7 +149,7 @@ def result_page():
             # Data not present, flash an error message
             flash('error', 'No data available. Redirecting to recommendation page...')
             time.sleep(1)
-                 # Clear the session data if needed
+            # Clear the session data if needed
             session['recommended_songs'] = None
             session['chosen_tracks_name'] = None
             return redirect(url_for('button_page',_external=True))
@@ -127,7 +162,7 @@ def result_page():
 
 
 
-
+ 
 
 
 
@@ -138,7 +173,9 @@ def result_page():
 # 3 (imgs of all recommended songs or add it in the dictionary)
 def getRecommendations():
     try:
+        print("Retrieving token information\n")
         token_info = get_token() #refresh token or authenticate again if needed
+        print("token information retrieved!\n")
     except:
         print("User not logged in")
         return(redirect(url_for("login",_external=False)))
@@ -147,9 +184,35 @@ def getRecommendations():
 
     sp = spotipy.Spotify(auth=token_info['access_token']) #create spotify api client
 
+    print("Getting User's top items")
     #get user's top items
-    top_artists_info = sp.current_user_top_artists(limit=LIMIT_TOP_ARTIST, time_range=TIMERANGE)['items']
-    top_tracks_info = sp.current_user_top_tracks(limit=LIMIT_TOP_TRACKS,time_range=TIMERANGE)['items']
+    #top_artists_info = sp.current_user_top_artists(limit=LIMIT_TOP_ARTIST, time_range=TIMERANGE)['items']
+    #top_tracks_info = sp.current_user_top_tracks(limit=LIMIT_TOP_TRACKS,time_range=TIMERANGE)['items']
+       # Number of retries
+    
+    #retrying since sometimes connection is reset by spotify api
+    max_retries = 3
+
+    for retry in range(max_retries):
+        try:
+            print("Getting User's top items")
+            # get user's top items
+            top_artists_info = sp.current_user_top_artists(limit=LIMIT_TOP_ARTIST, time_range=TIMERANGE)['items']
+            top_tracks_info = sp.current_user_top_tracks(limit=LIMIT_TOP_TRACKS, time_range=TIMERANGE)['items']
+            
+            # Break out of the loop if successful
+            break
+        except Exception as e:
+            print(f"Error getting top items: {e}")
+            
+            if retry < max_retries - 1:
+                # Retry if there are more retries remaining
+                print(f"Retrying ({retry + 1}/{max_retries})...")
+                time.sleep(2)  # Add a small delay before retrying
+            else:
+                # Max retries reached, handle the error as needed
+                print("Max retries reached. Unable to retrieve top items.")
+                return None ,None#invalid return value
     
 
     top_artists = []
@@ -167,16 +230,17 @@ def getRecommendations():
 
         #print(f"Track artists: {track_artists}")
 
+
+    #chosen_artist_id,chosen_artist_name = choose_artist(top_artists) #get random top_artist id for recommendation
+
+
     
-    chosen_artist_id,chosen_artist_name = choose_artist(top_artists) #get random top_artist id for recommendation
-
-
     chosen_tracks_dict = choose_tracks(top_tracks)
     chosen_tracks_id = list(chosen_tracks_dict.keys())
     chosen_tracks = list(chosen_tracks_dict.values())
     
-
-    recommendations_info = sp.recommendations(seed_tracks=chosen_tracks_id,limit=15)
+    print("Getting recommendations\n")
+    recommendations_info = sp.recommendations(seed_tracks=chosen_tracks_id,limit=NUM_SONGS_RECOMMENDED)
     recommended_tracks_dict = {} #dict to store recommended songs name['key] - and artist name
     for track in recommendations_info['tracks']:
         track_artists = [artist['name'] for artist in track['artists']]
@@ -203,6 +267,43 @@ def getRecommendations():
 
     return (recommended_tracks_dict,chosen_tracks)
            
+#@return a string of the spotify user's username; 
+#returns default value of "User" if failed
+def getName():
+    try:
+        print("Retrieving token information\n")
+        token_info = get_token() #refresh token or authenticate again if needed
+        print("token information retrieved!\n")
+    except:
+        print("User not logged in")
+        return(redirect(url_for("login",_external=False)))
+        
+
+
+    sp = spotipy.Spotify(auth=token_info['access_token']) #create spotify api client
+    
+    
+
+    max_retries = 10
+
+    for retry in range(max_retries):
+        try:
+            info = sp.current_user()
+            print(info['display_name'])
+            
+            # Break out of the loop if successful
+            return info['display_name']
+        except Exception as e:
+            print(f"Error getting user info: {e}")
+            
+            if retry < max_retries - 1:
+                # Retry if there are more retries remaining
+                print(f"Retrying ({retry + 1}/{max_retries})...")
+                time.sleep(1)  # Add a small delay before retrying
+            else:
+                # Max retries reached, handle the error as needed
+                print("Max retries reached. Unable to retrieve top items.")
+                return "User" #invalid return value
     
 
 
