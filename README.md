@@ -5,7 +5,7 @@ A Webserver Application to generate personalized Spotify Song recommendations ba
 
 ## Screenshots
 
-![Recommendations](Project_Screenshot.png)
+<img src="(Ver2.0_Screenshot.png)" alt="Version 2.0" width ="300" height="300">
 
 
 
@@ -51,7 +51,7 @@ flask run
 ## Version History
 ### Version 2.0
 
-![Version 2.0](Project_Screenshot.png)
+
 
 - Overhaul of UI. Using more green tones.
 - Added Retries and Error Handling for API-Calls.
@@ -60,7 +60,7 @@ flask run
 
 ### Version 1.0
 
-<img src="Project_Screenshot.png" alt="Version 2.0" width ="300" height="300">
+
 
 - Initial release.
 - Basic recommendation functionality.
