@@ -3,7 +3,7 @@
 A Webserver Application to generate personalized Spotify Song recommendations based on the user's top songs.
 
 
-## Screenshots
+## Preview
 
 <img src="Preview.gif" alt="Insert GIF Here" >
 
