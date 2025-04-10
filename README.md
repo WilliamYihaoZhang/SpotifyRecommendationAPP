@@ -2,6 +2,11 @@
 
 A Webserver Application to generate personalized Spotify Song recommendations based on the user's top songs.
 
+### **Update 10.04.2025:**
+
+Sadly, this app is no longer usable due to changes in the Spotify Web API. As of November 2024, many functionalities, including the recommendations endpoint, have been deprecated. For more details on the API changes, please refer to [Spotify's official blog post about the changes](https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api).
+
+
 
 ## Preview
 
